@@ -1,4 +1,42 @@
 <script setup lang="ts">
+import type { User } from '@/types/user'
+const supabase = useSupabaseClient()
+const runtimeConfig = useRuntimeConfig()
+
+    
+    const credentials = ref<User>({
+        fullname: '',
+        email: '',
+        password: '',
+    });
+    const errorMsg = ref<string | null>(null);
+    const successMsg = ref<string | null>(null);
+    const checkedNames = ref(false);
+    async function submitData() {
+        try {
+            if (credentials.value.email === null || credentials.value.password === null) throw Error;
+            const { data, error } = await supabase.auth.signUp({
+                email: credentials.value.email,
+                password: credentials.value.password
+            })
+            if (error) throw error;
+            successMsg.value = "Check your email to confirm your account."
+            console.log("data")
+
+        } catch (error) {
+            if (error instanceof Error) {
+                errorMsg.value = error.message;
+                return {
+                    message: `(${error.message})`,
+                };
+            } else {
+                return {
+                    message: `(${error})`,
+                };
+            }
+            
+        }
+    }
 </script>
 <template>
     <NuxtLayout>
@@ -12,22 +50,23 @@
             <form @submit.prevent="submitData" class="p-2 my-5 space-y-5">
                 <div>
                     <label for="text">Full Name</label>
-                    <input type="text" class="w-full rounded p-2 border" placeholder="">
+                    <input type="text" v-model="credentials.fullname" name="fullname" class="w-full rounded p-2 border">
                 </div>
                 <div>
                     <label for="email">Email</label>
-                    <input type="email" name="email" class="w-full rounded p-2 border" id="">
+                    <input type="email" v-model="credentials.email" name="email" class="w-full rounded p-2 border">
                 </div>
                 <div>
                     <label for="password">Password</label>
-                    <input type="password" name="password" class="w-full rounded p-2 border" id="">
+                    <input type="password" v-model="credentials.password" name="password" class="w-full rounded p-2 border">
                 </div>
                 <div class="flex space-x-2 items-center">
                     <input type="checkbox" id="" value="" v-model="checkedNames">
                     <label class="text-[10px]" for="agreement">I agree to the Membershipcrafters terms of service and
                         have read the privacy policy</label>
                 </div>
-                <button type="submit" class="py-3 px-5 md:hidden w-full text-white font-bold rounded  
+                <small class="text-red" v-if="errorMsg">{{ errorMsg }}</small>
+                <button type="submit" class="py-3 px-5  w-full text-white font-bold rounded  
           bg-blue-700 hover:bg-blue-800
           ">
                     Sign up

@@ -18,12 +18,12 @@
         </nav>
         <aside class="flex items-center gap-4">
             <div class="hidden md:block space-x-4">
-                <NuxtLink to="signin"
+                <NuxtLink to="login"
                     class="relative inline-flex h-10 overflow-hidden rounded-full p-[2px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
                     <button class="btn-primary">Log in</button>
                 </NuxtLink>
                 <!-- //WIP:wire up user -->
-                <NuxtLink to="signup">
+                <NuxtLink to="register">
                     <button class="py-2 px-5 text-white font-bold rounded  
                 bg-blue-700 hover:bg-blue-800">Get started</button>
                 </NuxtLink>
