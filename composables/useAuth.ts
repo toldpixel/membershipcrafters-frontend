@@ -12,8 +12,17 @@ export const useAuth = () => {
     const supabase = useSupabaseClient()
 
     const checkUser = async () => {
-        const { data: { user } } = await supabase.auth.getUser()
-        
+        const { data, error } = await supabase.auth.getUser()
+        if (error) {
+            console.error('Error fetching user:', error);
+            return;
+        }
+
+        if (data.user) {
+            user.value = data.user;
+        } else {
+            console.log('No user data available.');
+        }
     }
     
     async function signIn(email: string | null, password: string | null) {
@@ -27,7 +36,6 @@ export const useAuth = () => {
             if (error) throw error;
     
             await checkUser()
-            console.log(user.value)
             if (user.value) {
                 navigateTo('/dashboard')
             }

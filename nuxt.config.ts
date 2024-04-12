@@ -1,6 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 export default defineNuxtConfig({
   devtools: { enabled: true },
+  build: {
+    transpile: ['vuetify'],
+  },
   runtimeConfig: {
     supabaseUrl: process.env.SUPABASE_URL, // can be overridden by NUXT_API_SECRET environment variable
     supabaseKey: process.env.SUPABASE_KEY,
@@ -16,9 +20,21 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/color-mode',
     'nuxt-icon',
-    'shadcn-nuxt',
-    '@nuxtjs/supabase'
+    '@nuxtjs/supabase',
+    (_options, nuxt) => {
+      nuxt.hooks.hook('vite:extendConfig', (config) => {
+        // @ts-expect-error
+        config.plugins.push(vuetify({ autoImport: true }))
+      })
+    },
   ],
+  vite: {
+    vue: {
+      template: {
+        transformAssetUrls,
+      },
+    },
+  },
   supabase: {
     // Options
     redirect: true,
@@ -29,17 +45,6 @@ export default defineNuxtConfig({
       exclude: ['/'],
       cookieRedirect: false,
     }
-  },
-  shadcn: {
-    /**
-     * Prefix for all the imported component
-     */
-    prefix: '',
-    /**
-     * Directory that the component lives in.
-     * @default "./components/ui"
-     */
-    componentDir: './components/ui'
   },
   css: ['~/assets/css/main.css'],
   postcss: {

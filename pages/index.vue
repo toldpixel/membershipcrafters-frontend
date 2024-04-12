@@ -3,7 +3,7 @@ const title = ref('Membershipcrafters')
 const description = ref('Automate Your Work With Membershipcrafters')
 const colorMode = useColorMode()
 colorMode.preference = 'dark'
-const indexLayout = 'index-layout'
+const main = 'main'
 useHead({
     title,
     meta: [{
@@ -21,7 +21,7 @@ useHead({
 </script>
 
 <template>
-    <NuxtLayout :name="indexLayout">
+    <NuxtLayout :name="main">
         <div class="container mx-auto p-4">
             <section>
                 <TheHero></TheHero>
