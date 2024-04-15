@@ -12,6 +12,9 @@
   "dependencies": {
     "@mdi/font": "^7.4.47",
     "@supabase/supabase-js": "^2.42.0",
+    "@tiptap/pm": "^2.3.0",
+    "@tiptap/starter-kit": "^2.3.0",
+    "@tiptap/vue-3": "^2.3.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "lucide-vue-next": "^0.365.0",

@@ -51,7 +51,7 @@ function search() {
                 </Avatar>
             -->
 
-
+            <v-avatar color="surface-variant"></v-avatar>
 
             </div>
         </div>
