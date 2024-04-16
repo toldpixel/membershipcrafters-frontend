@@ -19,7 +19,6 @@ export default defineNuxtConfig({
   },
   modules: [
     '@nuxtjs/color-mode',
-    'nuxt-icon',
     '@nuxtjs/supabase',
     (_options, nuxt) => {
       nuxt.hooks.hook('vite:extendConfig', (config) => {
