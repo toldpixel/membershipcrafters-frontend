@@ -12,21 +12,8 @@
         </div>
         <div class="flex flex-col items-center w-full my-12">
             <div class="min-w-[750px] ">
-                <div class="flex space-x-10">
-                    <div class="grow">
-                        <slot></slot>
-                        
-                    </div>
-                    <aside>
-                        <div class="">
-                            <DashboardPreview></DashboardPreview>
-                        </div>
-                    </aside>
-                </div>
+                <slot></slot>  
             </div>
-
-
-
         </div>
 
     </div>
