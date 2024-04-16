@@ -14,7 +14,7 @@ const showModalPost = ref(false)
                         Write something
                     </div>
                 </div>
-                <div v-if="showModalPost" class="absolute z-50 bg-white p-2 rounded w-[500px] ">
+                <div v-if="showModalPost" class="absolute z-50 bg-white p-2 rounded w-full ">
                     <TipTap></TipTap>
                 </div>
             </div>
@@ -48,11 +48,9 @@ const showModalPost = ref(false)
                 </div>
             </div>
         </div>
-
-
         <aside>
             <div class="">
-                <DashboardPreview></DashboardPreview>
+                <DashboardCommunityPreview></DashboardCommunityPreview>
             </div>
         </aside>
     </div>

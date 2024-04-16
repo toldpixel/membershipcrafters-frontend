@@ -46,7 +46,7 @@ const handleLogin = async () => {
                         <input type="password" v-model="credentials.password" name="password"
                             class="w-full rounded p-2 border" id="">
                     </div>
-                    <button type="submit" class="py-3 px-5  w-full text-white font-bold rounded  
+                    <button type="submit" class="py-3 px-5 w-full md:block text-white font-bold rounded  
           bg-blue-700 hover:bg-blue-800
           ">
                         Sign In

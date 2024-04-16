@@ -10,7 +10,7 @@
       :loading="loading"
       class="mx-auto "
       max-width="200"
-      max-height="250"
+      max-height="400"
     >
       <template v-slot:loader="{ isActive }">
         <v-progress-linear
@@ -28,48 +28,35 @@
       ></v-img>
   
       <v-card-item>
-        <v-card-title>Cafe Badilico</v-card-title>
-  
+        <v-card-title>Community Title</v-card-title>
         <v-card-subtitle>
-          <span class="me-1">Local Favorite</span>
-  
-          <v-icon
-            color="error"
-            icon="mdi-fire-circle"
-            size="small"
-          ></v-icon>
+          <small class="m-1">Private group</small>
         </v-card-subtitle>
       </v-card-item>
   
       <v-card-text>
   
-        <div class="my-4 text-subtitle-1">
+        <div class="text-subtitle-1">
           $ • Italian, Cafe
         </div>
   
-        <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
+        <div>Small plates, salads & sandwiches - an intimate </div>
       </v-card-text>
   
       <v-divider class="mx-4 mb-1"></v-divider>
   
-      <v-card-title>Tonight's availability</v-card-title>
+
   
-      <div class="px-4 mb-2">
-        <v-chip-group v-model="selection" selected-class="bg-deep-purple-lighten-2">
-          <v-chip>5:30PM</v-chip>
-  
-          <v-chip>7:30PM</v-chip>
-  
-          <v-chip>8:00PM</v-chip>
-  
-          <v-chip>9:00PM</v-chip>
-        </v-chip-group>
+      <div class="flex text-[12px] space-x-5 px-4 mb-2">
+        <div>Members</div>
+        <div>Online</div>
+        <div>Admins</div>
       </div>
   
       <v-card-actions>
         <v-btn
           color="deep-purple-lighten-2"
-          text="Reserve"
+          text="SETTINGS"
           block
           border
           @click="reserve"
