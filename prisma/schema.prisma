@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  schemas  = ["community"]
+}
+
+
+model comments {
+  comment_id        BigInt    @id @default(autoincrement())
+  post_id           BigInt?
+  content           String?
+  created_at        DateTime @default(now()) @db.Timestamptz(6)
+  parent_comment_id BigInt?
+  author_id         BigInt?
+  profiles          profiles? @relation(fields: [author_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "community_comments_author_id_fkey")
+  comments          comments? @relation("commentsTocomments", fields: [parent_comment_id], references: [comment_id], onDelete: NoAction, onUpdate: NoAction, map: "community_comments_parent_comment_id_fkey")
+  other_comments    comments[] @relation("commentsTocomments")
+  posts             posts?     @relation(fields: [post_id], references: [posts_id], onDelete: NoAction, onUpdate: NoAction, map: "community_comments_post_id_fkey")
+
+  @@schema("community")
+}
+
+model community {
+  community_id      BigInt             @id @default(autoincrement())
+  name              String?            @default("") @db.VarChar
+  description       String?            @default("")
+  created_at        DateTime           @default(now()) @db.Timestamptz(6)
+  community_members community_members[]
+  posts             posts[]
+
+  @@schema("community")
+}
+
+model community_members {
+  membership_id BigInt    @id @default(autoincrement())
+  community_id  BigInt?
+  role          String?   @default("") @db.VarChar
+  joined_at     DateTime? @default(now()) @db.Timestamp(6)
+  profile_id    BigInt?
+  community     community? @relation(fields: [community_id], references: [community_id], onDelete: NoAction, onUpdate: NoAction, map: "community_community_members_community_id_fkey")
+  profiles      profiles? @relation(fields: [profile_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "community_community_members_profile_id_fkey")
+
+  @@schema("community")
+}
+
+model likes {
+  like_id      BigInt    @id(map: "Likes_pkey") @default(autoincrement())
+  likeable_id  BigInt?
+  likable_type String?   @default("") @db.VarChar
+  created_at   DateTime  @default(now()) @db.Timestamptz(6)
+  profile_id   BigInt?
+  profiles     profiles? @relation(fields: [profile_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "community_likes_profile_id_fkey")
+
+  @@schema("community")
+}
+
+model posts {
+  posts_id     BigInt     @id @default(autoincrement())
+  community_id BigInt?
+  author_id    BigInt?
+  content      String?
+  created_at   DateTime   @default(now()) @db.Timestamptz(6)
+  updated_at   DateTime?  @db.Timestamptz(6)
+  comments     comments[]
+  profiles     profiles?  @relation(fields: [author_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "community_posts_author_id_fkey")
+  community    community? @relation(fields: [community_id], references: [community_id], onDelete: NoAction, onUpdate: NoAction, map: "community_posts_community_id_fkey")
+
+  @@schema("community")
+}
+
+model profiles {
+  first_name        String?             @default("")
+  last_name         String?             @default("")
+  id                BigInt              @id @default(autoincrement())
+  u_id              String?             @db.Uuid
+  comments          comments[]
+  community_members community_members[]
+  likes             likes[]
+  posts             posts[]
+
+  @@schema("community")
+}

@@ -55,7 +55,7 @@ const handleLogin = async () => {
                 <div class="text-center my-5">
                     <NuxtLink class="text-blue-700 hover:text-blue-800" to="/">← Back</NuxtLink>
                     <div class="my-5 text-[14px]">
-                        Don't have an account? <NuxtLink class="text-blue-700 hover:text-blue-800" to="login">Sign up
+                        Don't have an account? <NuxtLink class="text-blue-700 hover:text-blue-800" to="register">Sign up
                         </NuxtLink>
                     </div>
                     <div class="my-5 text-[14px]">

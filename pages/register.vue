@@ -22,7 +22,6 @@ const runtimeConfig = useRuntimeConfig()
             if (error) throw error;
             successMsg.value = "Check your email to confirm your account."
             console.log("data")
-
         } catch (error) {
             if (error instanceof Error) {
                 errorMsg.value = error.message;

@@ -9,18 +9,24 @@ const items = [
     'Log out'
 ]
 const searchQuery = ref('')
+const showModalCreateCommunity = ref(false)
 
 function search() {
 
 }
 
+const emit = defineEmits(["createCommunity"])
+
 function profileOption(index: number) {
-    console.log(index)
+    if("Create a Community" === items[index]) {
+        showModalCreateCommunity.value = true;
+        emit("createCommunity", showModalCreateCommunity)
+    }
 }
 </script>
 
 <template>
-    <div class="flex p-1 items-center space-x-7 bg-white">
+    <div class="relative flex p-1 items-center space-x-7 bg-white">
         <div>Logo</div>
         <div class="p-2 rounded-full hover:bg-slate-200 cursor-pointer">
             <Icon size="24" name="material-symbols:keyboard-double-arrow-down-rounded"></Icon>
@@ -77,5 +83,5 @@ function profileOption(index: number) {
                 </v-list>
             </v-menu>
         </div>
-    </div>
+    </div>    
 </template>

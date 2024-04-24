@@ -42,7 +42,7 @@ export default defineNuxtConfig({
       login: '/login',
       callback: '/dashboard',
       include: undefined,
-      exclude: ['/'],
+      exclude: ['/', '/register'],
       cookieRedirect: false,
     }
   },
